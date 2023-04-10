@@ -1,0 +1,121 @@
+#include <iostream>
+#include <locale.h>
+using namespace std;
+
+class Data
+{
+public:
+  int dia = 10;
+  int mes = 04;
+  int ano = 2023;
+
+  int dia_nasc =0;
+  int mes_nasc =0;
+  int ano_nasc =0;
+  int idade =0;
+
+  int getIdade();
+  
+};
+
+
+class Contato
+{
+public:
+  string email;
+  string nome;
+  string telefone;
+
+public:
+  Contato(string email, string nome, string telefone){
+      this->email = email;
+      this->nome = nome;
+	  this->telefone = telefone;
+  }
+  Contato() {
+    this->email = "";
+    this->nome = "";
+	this->telefone = "";
+  }
+    void setEmail(string email) {
+			this->email = email;
+		}
+	void setNome(string nome) {
+			this->nome = nome;
+		}
+	void setTelefone(string telefone) {
+			this->telefone = telefone;
+		}
+	string getEmail() {
+			return this->email;
+		}
+	string getNome() {
+			return this->nome;
+		}
+	string getTelefone() {
+			return this->telefone;
+		}
+	string getContato()
+    {
+        return (this->email);
+               (this->nome);
+               (this->telefone);
+    }
+   
+        
+};
+
+int getIdade()
+{
+  int idade = 2023 - Data.ano_nasc;
+  return idade;
+    
+}
+void getData()
+{
+    return (Data.dia) + "/" +
+           (Data.mes) + "/" +
+           (Data.ano);	  
+}
+
+int main ()
+{
+  setlocale (LC_ALL, "");
+  Data hoje;
+  Contato cont;
+  int d, m, a;
+  string e, n, t;
+
+  hoje.dia = 10;
+  hoje.mes = 04;
+  hoje.ano = 2023;
+
+  for(int i = 0; i < 5; ++i)
+  {
+  cout<<"Digite seu nome";
+  cin>>n;
+  cont.nome = n;
+  
+  cout<<"Digite seu e-mail";
+  cin>>e;
+  cont.email = e;
+  
+  cout<<"Digite seu telefone";
+  cin>>t;
+  cont.telefone = t;
+  
+  cout<<"Digite sua data de nascimento (separadamente dia, mes e ano)";
+  cin>> d;
+  hoje.dia_nasc = d;
+  cin>> m;
+  hoje.mes_nasc = m;
+  cin>> a;
+  hoje.ano_nasc = a;
+  
+  cout<< "Data:" + getData();
+  cout<< "Nome:" + cont.nome;
+  cout<< "E-mail:" + cont.email;
+  cout<< "Telefone:" + cont.telefone;
+  cout<< "Idade:" + getIdade();
+  }
+};
