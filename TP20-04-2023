@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Funcionario {
+    private:
+        int prontuario;
+        string nome;
+        double salario;
+
+    public:
+        Funcionario(int p, string n, double s) {
+            prontuario = p;
+            nome = n;
+            salario = s;
+        }
+
+        int getProntuario() {
+            return prontuario;
+        }
+
+        string getNome() {
+            return nome;
+        }
+
+        double getSalario() {
+            return salario;
+        }
+
+        void setNome(string n) {
+            nome = n;
+        }
+
+        void setSalario(double s) {
+            salario = s;
+        }
+
+        void imprimir() {
+            cout << "Prontuário: " << prontuario << endl;
+            cout << "Nome: " << nome << endl;
+            cout << "Salário: " << salario << endl;
+        }
+};
+
+int main() {
+    vector<Funcionario*> funcionarios;
+    int opcao, prontuario;
+    string nome;
+    double salario;
+
+    do {
+        cout << "Menu:" << endl;
+        cout << "0 - Sair" << endl;
+        cout << "1 - Incluir" << endl;
+        cout << "2 - Excluir" << endl;
+        cout << "3 - Pesquisar" << endl;
+        cout << "4 - Listar" << endl;
+        cin >> opcao;
+
+        switch (opcao) {
+            case 1:
+                cout << "Digite o prontuário do funcionário: ";
+                cin >> prontuario;
+                for (auto f : funcionarios) {
+                    if (f->getProntuario() == prontuario) {
+                        cout << "Já existe um funcionário com esse prontuário." << endl;
+                        break;
+                    }
+                }
+                cout << "Digite o nome do funcionário: ";
+                cin >> nome;
+                cout << "Digite o salário do funcionário: ";
+                cin >> salario;
+                funcionarios.push_back(new Funcionario(prontuario, nome, salario));
+                break;
+
+            case 2:
+                cout << "Digite o prontuário do funcionário a ser excluído: ";
+                cin >> prontuario;
+                for (auto it = funcionarios.begin(); it != funcionarios.end(); it++) {
+                    if ((*it)->getProntuario() == prontuario) {
+                        delete *it;
+                        funcionarios.erase(it);
+                        break;
+                    }
+                }
+                break;
+
+            case 3:
+                cout << "Digite o prontuário do funcionário a ser pesquisado: ";
+                cin >> prontuario;
+                for (auto f : funcionarios) {
+                    if (f->getProntuario() == prontuario) {
+                        f->imprimir();
+                        break;
+                    }
+                }
+                break;
+
+            case 4:
+                double total_salarios = 0.0;
+                for (auto f : funcionarios) {
+                    f->imprimir();
+                    total_salarios += f->getSalario();
+                }
+                cout << "Total dos salários: " << total_salarios << endl;
+                break;
+
+            default:
+                cout << "Opção inválida." << endl;
+        }
+    } while (opcao != 0);
+
+    for (auto f : funcionarios) {
+        delete f;
+    }
+
+    return 0;
+}
