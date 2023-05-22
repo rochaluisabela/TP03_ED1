@@ -1,0 +1,59 @@
+//Aluno: Isabela Rocha - CB3021599
+#include <iostream>
+#include <stack>
+#include <vector>
+
+using namespace std;
+
+// Função para digitar e validar os números
+void digitarNumeros(int& numAnterior, stack<int>& pilhaPar, stack<int>& pilhaImpar) {
+    for (int i = 0; i < 30; i++) {
+        int num;
+        cout << "Digite o numero " << i+1 << ": ";
+        cin >> num;
+
+        // Verificar se o número é maior do que o anterior
+        if (num > numAnterior) {
+            numAnterior = num;
+
+            // Empilhar em pilhaPar se for par, caso contrário, em pilhaImpar
+            if (num % 2 == 0) {
+                pilhaPar.push(num);
+            } else {
+                pilhaImpar.push(num);
+            }
+        } else {
+            cout << "Numero invalido! Digite um numero maior do que o anterior." << endl;
+            i--; // Reverter para digitar novamente o número
+        }
+    }
+}
+
+// Função para desempilhar e mostrar os números em ordem decrescente
+void mostrarNumeros(stack<int>& pilha) {
+    while (!pilha.empty()) {
+        cout << pilha.top() << " ";
+        pilha.pop();
+    }
+    cout << endl;
+}
+
+int main() {
+    int INT_MIN;
+    int numAnterior =  INT_MIN; // Número anterior inicializado como o menor número inteiro possível
+    stack<int> pilhaPar; // Pilha para números pares
+    stack<int> pilhaImpar; // Pilha para números ímpares
+
+    // Digitar e validar os números
+    digitarNumeros(numAnterior, pilhaPar, pilhaImpar);
+
+    // Mostrar os números pares em ordem decrescente
+    cout << "Numeros pares em ordem decrescente: ";
+    mostrarNumeros(pilhaPar);
+
+    // Mostrar os números ímpares em ordem decrescente
+    cout << "Numeros impares em ordem decrescente: ";
+    mostrarNumeros(pilhaImpar);
+
+    return 0;
+}
