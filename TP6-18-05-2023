@@ -1,0 +1,45 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main() {
+    queue<int> senhasGeradas;
+    queue<int> senhasAtendidas;
+
+    int opcao;
+    int senha = 1;
+
+    while (true) {
+        cout << "Seletor:\n";
+        cout << "0. Sair\n";
+        cout << "1. Gerar senha\n";
+        cout << "2. Realizar atendimento\n";
+        cout << "Senhas aguardando atendimento: " << senhasGeradas.size() << endl;
+        cout << "Opção: ";
+        cin >> opcao;
+
+        if (opcao == 0) {
+            break;
+        } else if (opcao == 1) {
+            senhasGeradas.push(senha);
+            cout << "Senha gerada: " << senha << endl;
+            senha++;
+        } else if (opcao == 2) {
+            if (senhasGeradas.empty()) {
+                cout << "Não há senhas aguardando atendimento.\n";
+            } else {
+                int senhaAtendida = senhasGeradas.front();
+                senhasGeradas.pop();
+                senhasAtendidas.push(senhaAtendida);
+                cout << "Senha em atendimento: " << senhaAtendida << endl;
+            }
+        } else {
+            cout << "Opção inválida. Por favor, escolha novamente.\n";
+        }
+    }
+
+    cout << "Quantidade de senhas atendidas: " << senhasAtendidas.size() << endl;
+
+    return 0;
+}
